@@ -84,28 +84,33 @@ function App(){
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-    }).json()
+    })
+
+    console.log(res.status)
+    const data = await res.json();
     // Storing the identity of the user
-    setIdentity(res.identity)
+    setIdentity(data.identity)
   }
 
   // If the user has not logged in
   if(identity===null){
     return (
-      <div className="App">
-        <header className="header">Press the button to create a Identification session</header>
+      <div style={container}>
+        <header className="header">Press the authenticate button create a Identification session</header>
         {/* Used to test the getToken method, but will be replaced with getId */}
-        <div className="buttonWrapper">
-          <input className="btn" type="button" value="Authenticate" onClick={getToken}/>
-          <input className="btn" type="button" value="Get info" onClick={getIdentity}/>
+        <div style={buttonWrapper}>
+          <input style={button} type="button" value="Authenticate" onClick={getToken}/>
+          <input style={button} type="button" value="Get user info" onClick={getIdentity}/>
         </div>
       </div>
     );
   } else {
     return(
-      <div className="App">
-        <text>Name: {identity.fullName}</text>
-        <text>Date of Birth: {identity.dateOfBirth}</text>
+      <div style={container}>
+        <div style={identification}>
+          <text>Name: {identity.fullName}</text>
+          <text>Date of Birth: {identity.dateOfBirth}</text>
+        </div>
       </div>
     )
   }
@@ -113,3 +118,32 @@ function App(){
 }
 
 export default App;
+
+const container = {
+  padding: 20,
+  textAlign: 'center',
+}
+
+const identification = {
+  display: 'flex',
+  flexDirection: 'column',
+
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  marginTop: 10,
+}
+
+const buttonWrapper =  {
+  display: 'flex',
+  flexDirection: 'column',
+
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  marginTop: 10,
+  padding: 10,
+  width: '40%',
+}
+
+const button = {
+  marginBottom: 10
+}
