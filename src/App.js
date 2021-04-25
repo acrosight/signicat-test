@@ -25,7 +25,6 @@ function App(){
 
     const res = await fetch("https://api.signicat.io/oauth/connect/token", {
         method: "POST",
-        mode: 'no-cors',
         credentials: 'include',
         headers: header,
         body: JSON.stringify(payload),
@@ -77,11 +76,10 @@ function App(){
   async function getIdentity() {
     // Retrieving the token
     const token = await getToken();
-    
+
     const res = await fetch (`https://api.signicat.io/identification/v2/sessions/${id}`, 
     {
       method: "POST",
-      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,

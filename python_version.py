@@ -1,9 +1,17 @@
 import config
+import webbrowser
 import requests
+import time
 import json
 
-
+    
 def get_token():
+    """ This function will send a request with HTTP Basic authentication to receive a token
+        
+        Returns: 
+        String -- Token
+    """ 
+    
     # Token url
     token_endpoint = "https://api.signicat.io/oauth/connect/token"
     # Setting the grant type to client_credentials
@@ -13,11 +21,17 @@ def get_token():
     # Converting json string to json
     token_json = json.loads(token.text)
     
-    access_token = token_json['access_token']
-    print(access_token)
-    return access_token
+    # Returning the access_token
+    return token_json['access_token']
 
-def get_id(token):
+def get_id():
+    """ This function fetches the id of a session and directs the user to BankID authentication
+
+    Returns:
+        [String]: Session ID
+    """
+    
+    token = get_token()
     # Endpoint url
     endpoint = "https://api.idfy.io/identification/v2/sessions"
     # Setting headers with the authorization bearer
@@ -32,6 +46,7 @@ def get_id(token):
         "include": [
             "name",
             "date_of_birth",
+            "phone_number",
             "nin"
         ],
         "redirectSettings": {
@@ -40,19 +55,24 @@ def get_id(token):
             "errorUrl": "https://example.com/error"
         }
     }
-    # Converting the data into a json
+    # Converting the data into a json string and sending a post request 
     response = requests.post(endpoint, data=json.dumps(data), headers=headers).json()
-    print(response['id'], response['url'])
-    
+    print(f"Press link to authenticate: {response['url']}")
+    # Opening the browser and to authenticate the user
+    webbrowser.open(response['url'])
+    # Giving the user time to authenticate through BankID, before we return the id
+    time.sleep(30)
     return response['id']
 
 def get_session():
+    """ This function retrieves the identification session by using the id we found by logging in with BankID 
+    """
     token  = get_token()
-    _id = get_id(token)
+    _id = get_id()
     headers = {'Content-Type': 'application/json', 'Authorization': f'Bearer {token}'}
     endpoint = f"https://api.signicat.io/identification/v2/sessions/{_id}" 
     response = requests.get(endpoint, headers=headers).json()
-    print(response)
     
-
+    print(response['identity'])
+    
 get_session()
