@@ -14,11 +14,11 @@ function App(){
 
     // Turning into HTML Basic Authentication with base-64 formatting
     const authorizationBasic = `Basic ` + btoa(`${client_id}:${client_secret}`);
-    console.log(authorizationBasic)
 
     let header = {
       'Authorization': authorizationBasic,
       'Content-Type': 'application/x-www-form-urlencoded',
+      'Access-Control-Allow-Origin': 'http://localhost:3000/'
     }
 
     const payload = { "grant_type": "client_credentials", "scope": "identify" }
@@ -26,11 +26,12 @@ function App(){
     const res = await fetch("https://api.signicat.io/oauth/connect/token", {
         method: "POST",
         mode: 'no-cors',
+        credentials: 'include',
         headers: header,
         body: JSON.stringify(payload),
     })
 
-    console.log(res.status)
+    console.log(res)
     // const data = await res.json();
     // console.log(data.access_token);
     // return data.access_token
@@ -98,7 +99,7 @@ function App(){
       <div style={container}>
         <header className="header">Press the authenticate button create a Identification session</header>
         {/* Used to test the getToken method, but will be replaced with getId */}
-        <div style={buttonWrapper}>
+        <div style={wrapper}>
           <input style={button} type="button" value="Authenticate" onClick={getToken}/>
           <input style={button} type="button" value="Get user info" onClick={getIdentity}/>
         </div>
@@ -107,7 +108,7 @@ function App(){
   } else {
     return(
       <div style={container}>
-        <div style={identification}>
+        <div style={wrapper}>
           <text>Name: {identity.fullName}</text>
           <text>Date of Birth: {identity.dateOfBirth}</text>
         </div>
@@ -124,16 +125,7 @@ const container = {
   textAlign: 'center',
 }
 
-const identification = {
-  display: 'flex',
-  flexDirection: 'column',
-
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  marginTop: 10,
-}
-
-const buttonWrapper =  {
+const wrapper =  {
   display: 'flex',
   flexDirection: 'column',
 

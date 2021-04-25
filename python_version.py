@@ -1,7 +1,6 @@
 import config
 import requests
 import json
-import urllib.request
 
 
 def get_token():
@@ -9,19 +8,18 @@ def get_token():
     token_endpoint = "https://api.signicat.io/oauth/connect/token"
     # Setting the grant type to client_credentials
     data = {'grant_type':'client_credentials', 'scope':'identify'}
-    
     # Posting to token url with HTTP basic authentication
     token = requests.post(token_endpoint, data=data,allow_redirects=True, auth=(config.CLIENT_ID, config.CLIENT_SECRET))
     # Converting json string to json
     token_json = json.loads(token.text)
+    
     access_token = token_json['access_token']
+    print(access_token)
     return access_token
 
-def get_id():
+def get_id(token):
     # Endpoint url
     endpoint = "https://api.idfy.io/identification/v2/sessions"
-    # calling get_token to receive token
-    token = get_token()
     # Setting headers with the authorization bearer
     headers = {'Content-Type': 'application/json', 'Authorization': f'Bearer {token}'}
     data = {
@@ -46,14 +44,15 @@ def get_id():
     response = requests.post(endpoint, data=json.dumps(data), headers=headers).json()
     print(response['id'], response['url'])
     
-    _id = response['id']
     return response['id']
 
 def get_session():
-    id = get_id()
     token  = get_token()
+    _id = get_id(token)
     headers = {'Content-Type': 'application/json', 'Authorization': f'Bearer {token}'}
     endpoint = f"https://api.signicat.io/identification/v2/sessions/{_id}" 
     response = requests.get(endpoint, headers=headers).json()
     print(response)
     
+
+get_session()
