@@ -1,6 +1,6 @@
 # How to run the project
 
-This project is made in two different languages, through python(Working) and React/JavaScript (Having some problems)
+This project is made in two different languages, through python(Working) and React/JavaScript (Having some problems).
 The python project is working and will do what the developer test wants to accomplish.
 JavaScript version is almost functional, but i am struggling to get through the CORS-error, so this needs more work.
 

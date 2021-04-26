@@ -1,9 +1,8 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
 <h1>This is the Signicat Developer Test</h1>
-{% if boolean == True %} The user is authenticated {% else %} Please
-authenticate {% endif %}
-<p>{{text}}</p>
+{% if boolean == True %} <h4 class="m-10">The user is authenticated </h4>{% else %} <h4>Please
+authenticate</h4>{% endif %}
 <form method="post" action="/">
   <div class="d-flex flex-column justify-content-center w-50">
     
@@ -11,7 +10,7 @@ authenticate {% endif %}
       type="submit"
       name="display"
       value="Display User"
-      class="m-10"
+      class="mt-10"
     /> {% else %}
       <input type="submit" name="authenticate" value="Authenticate User" class="m-10"/>
     {% endif %}
