@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1>This is the Signicat Developer Test</h1>
+{% if boolean == True %} The user is authenticated {% else %} Please
+authenticate {% endif %}
+<p>{{text}}</p>
+<form method="post" action="/">
+  <input type="submit" name="authenticate" value="Authenticate User" />
+  {% if boolean == True %}<input
+    type="submit"
+    name="display"
+    value="Display User"
+  />
+  {% endif %}
+</form>
+{% endblock %}
