@@ -5,12 +5,11 @@ views = Blueprint('views', __name__)
 
 @views.route('/', methods=['GET','POST'])
 def home():
-    # signicat = python_version.signicat_test()
-    isAuthenticated = False
+    is_authenticated = False
     
     if request.form.get('authenticate'):
         global identity
-        isAuthenticated = True
+        is_authenticated = True
         identity = signicat_test.get_session()
         print(identity) 
         
@@ -19,4 +18,4 @@ def home():
         print(identity)
         return render_template('/userData.html',firstname=identity['firstName'], lastname=identity['lastName'], date=identity['dateOfBirth'])
     
-    return render_template('home.html', boolean=isAuthenticated)
+    return render_template('home.html', boolean=is_authenticated)
