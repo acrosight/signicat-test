@@ -58,15 +58,13 @@ def get_id():
     response = requests.post(endpoint, data=json.dumps(data), headers=headers).json()
     # Opening the browser and to authenticate the user
     webbrowser.open(response['url'])
-    # Giving the user 20 seconds to authenticate through BankID, before we return the id
-    time.sleep(20)
+    # returning the session id
     return response['id']
 
-def get_session():
+def get_session(_id):
     """ This function retrieves the identification session by using the id we found by logging in with BankID 
     """
     token = get_token()
-    _id = get_id()
     headers = {'Content-Type': 'application/json', 'Authorization': f'Bearer {token}'}
     endpoint = f"https://api.signicat.io/identification/v2/sessions/{_id}" 
     
