@@ -5,12 +5,15 @@
 authenticate {% endif %}
 <p>{{text}}</p>
 <form method="post" action="/">
-  <input type="submit" name="authenticate" value="Authenticate User" />
-  {% if boolean == True %}<input
-    type="submit"
-    name="display"
-    value="Display User"
-  />
-  {% endif %}
+  <div class="d-flex flex-column justify-content-center w-50">
+    <input type="submit" name="authenticate" value="Authenticate User" class="m-10"/>
+    {% if boolean == True %}<input
+      type="submit"
+      name="display"
+      value="Display User"
+      class="m-10"
+    />
+    {% endif %}
+  </div>
 </form>
 {% endblock %}

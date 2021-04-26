@@ -4,11 +4,21 @@ This project is made in two different languages, through python(Working) and Rea
 The python project is working and will do what the developer test wants to accomplish.
 JavaScript version is almost functional, but i am struggling to get through the CORS-error, so this needs more work.
 
-## To run the python project
+## Setup and installation
 
 ```
 pip install -r requirements.txt
 ```
+
+## Running the app
+
+```
+python main.py
+```
+
+## Viewing the app
+
+Go to ```http://127.0.0.1:5000/```
 
 ## To run the  JavaScript project
 
