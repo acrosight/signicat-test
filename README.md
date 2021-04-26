@@ -6,13 +6,13 @@ JavaScript version is almost functional, but i am struggling to get through the 
 
 ## Setup and installation
 
-```
+```python
 pip install -r requirements.txt
 ```
 
 ## Running the app
 
-```
+```python
 python main.py
 ```
 
@@ -22,7 +22,7 @@ Go to ```http://127.0.0.1:5000/```
 
 ## To run the  JavaScript project
 
-```
+```terminal
 npm install
 ```
 
