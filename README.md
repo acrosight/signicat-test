@@ -6,6 +6,8 @@ JavaScript version is almost functional, but i am struggling to get through the 
 
 ## Setup and installation
 
+Navigate to python_version folder
+
 ```python
 pip install -r requirements.txt
 ```
@@ -18,9 +20,9 @@ python main.py
 
 ## Viewing the app
 
-Go to ```http://127.0.0.1:5000/```
+Go to `http://127.0.0.1:5000/`
 
-## To run the  JavaScript project
+## To run the JavaScript project
 
 ```terminal
 npm install
